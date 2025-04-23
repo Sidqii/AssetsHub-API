@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Gambar Barang</title>
+</head>
+<body>
+    <h2>Upload Gambar Barang</h2>
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+        <label for="id">ID Barang:</label>
+        <input type="number" name="id" required><br>
+
+        <label for="fileToUpload">Gambar Barang:</label>
+        <input type="file" name="fileToUpload" required><br>
+
+        <input type="submit" value="Upload Gambar">
+    </form>
+</body>
+</html>
