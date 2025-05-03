@@ -5,48 +5,56 @@ if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
 }
 
-$kategori_items = [
-    1 => ['Laptop Asus', 'Laptop Lenovo', 'Printer Epson', 'Scanner Canon', 'Proyektor BenQ',
-          'Router TP-Link', 'Monitor LG', 'Speaker Logitech', 'Harddisk Eksternal', 'Webcam Logitech'],
-    2 => ['Meja Kantor', 'Kursi Ergonomis', 'Lemari Arsip', 'Rak Besi', 'Filing Cabinet',
-          'Meja Rapat', 'Kursi Tunggu', 'Whiteboard', 'Lemari Kayu', 'Partisi Kantor'],
-    3 => ['Stapler', 'Penggaris Besi', 'Spidol Boardmaker', 'Pulpen Gel', 'Kertas A4',
-          'Sticky Notes', 'Map Folder', 'Papan Klip', 'Penghapus', 'Perforator']
+// Daftar fix barang tanpa duplikat
+$items = [
+    [
+        'nama' => 'Laptop Asus',
+        'id_kategori' => 1,
+        'merk' => 'Asus',
+        'stok' => 5,
+        'harga' => 12000000
+    ],
+    [
+        'nama' => 'Printer Epson',
+        'id_kategori' => 1,
+        'merk' => 'Epson',
+        'stok' => 3,
+        'harga' => 4000000
+    ],
+    [
+        'nama' => 'Meja Kantor',
+        'id_kategori' => 2,
+        'merk' => 'IKEA',
+        'stok' => 8,
+        'harga' => 1500000
+    ],
+    [
+        'nama' => 'Kertas A4 Sidu',
+        'id_kategori' => 3,
+        'merk' => 'Sinar Dunia',
+        'stok' => 500,
+        'harga' => 75000
+    ],
+    [
+        'nama' => 'Stapler Joyko',
+        'id_kategori' => 3,
+        'merk' => 'Joyko',
+        'stok' => 100,
+        'harga' => 30000
+    ],
+    // Tambahkan barang lainnya...
 ];
 
-$merk_options = ['Epson', 'HP', 'Lenovo', 'Asus', 'Cisco', 'Brother', 'Dell'];
 $pengadaan_options = ['APBN 2021', 'APBN 2022', 'APBN 2023'];
+$item_counter = 1;
 
-for ($i = 1; $i <= 30; $i++) {
-    $id_kategori = rand(1, 3);
-    $nama_barang = $kategori_items[$id_kategori][array_rand($kategori_items[$id_kategori])];
+foreach ($items as $barang) {
 
-    // Stok berdasarkan kategori
-    if ($id_kategori == 1 || $id_kategori == 2) {
-        $stok = rand(1, 10);
-    } else {
-        $stok = rand(20, 50);
-    }
-
-    // Status berdasarkan kategori
-    switch ($id_kategori) {
-        case 1:
-            $allowed_status = ['Baik', 'Rusak', 'Pemeliharaan', 'Dipinjam'];
-            break;
-        case 2:
-            $allowed_status = ['Baik', 'Rusak', 'Pemeliharaan'];
-            break;
-        case 3:
-            $allowed_status = ['Baik'];
-            break;
-    }
-    $status = $allowed_status[array_rand($allowed_status)];
-
-    $harga = rand(10000, 50000);
+    $status = 'Baik'; // default status real
     $id_lokasi = rand(1, 3);
-    $merk = $merk_options[array_rand($merk_options)];
-    $kode_merk = strtoupper(substr($merk, 0, 3));
-    $no_seri = "SN-" . $kode_merk . "-" . str_pad($i, 4, "0", STR_PAD_LEFT);
+
+    $kode_merk = strtoupper(substr($barang['merk'], 0, 3));
+    $no_seri = "SN-" . $kode_merk . "-" . str_pad($item_counter, 4, "0", STR_PAD_LEFT);
     $pengadaan = $pengadaan_options[array_rand($pengadaan_options)];
     $tanggal_masuk = date("Y-m-d", strtotime("2023-" . rand(1, 12) . "-" . rand(1, 28)));
 
@@ -54,13 +62,15 @@ for ($i = 1; $i <= 30; $i++) {
         nama_barang, id_kategori, harga, stok, id_lokasi, status,
         merk, no_seri, pengadaan, tanggal_masuk
     ) VALUES (
-        '$nama_barang', '$id_kategori', '$harga', '$stok', '$id_lokasi', '$status',
-        '$merk', '$no_seri', '$pengadaan', '$tanggal_masuk'
+        '{$barang['nama']}', '{$barang['id_kategori']}', '{$barang['harga']}', '{$barang['stok']}', 
+        '$id_lokasi', '$status', '{$barang['merk']}', '$no_seri', '$pengadaan', '$tanggal_masuk'
     )";
 
     $mysqli->query($sql);
+
+    $item_counter++;
 }
 
-echo "✅ 30 dummy items berhasil ditambahkan dengan logika yang masuk akal!";
+echo "✅ Dummy items berhasil ditambahkan tanpa duplikat!";
 $mysqli->close();
 ?>

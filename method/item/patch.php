@@ -29,7 +29,7 @@ function patchBarang($conn)
         if ($operation["op"] === "replace") {
             $field = trim($operation["path"], "/");
 
-            $allowed_fields = ["nama_barang", "id_kategori", "harga", "stok", "id_lokasi", "status"];
+            $allowed_fields = ["nama_barang", "id_kategori", "stok", "id_lokasi", "status"];
             if (!in_array($field, $allowed_fields)) {
                 echo json_encode(["error" => "Field '$field' tidak diperbolehkan"]);
                 return;
