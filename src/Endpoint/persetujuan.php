@@ -2,13 +2,13 @@
 
 header('Connection-Types: application/json');
 require('../connection/connect_db.php');
-require('../../method/pengajuan/post.php');
+require('../../method/persetujuan/patch.php');
 
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
-    case 'POST':
-        pengajuanBarang($conn);
+    case 'PATCH':
+        persetujuan($conn);
         break;
 
     default:
