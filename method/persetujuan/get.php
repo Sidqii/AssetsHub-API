@@ -3,7 +3,7 @@
 function ambilPersetujuan($conn)
 {
     if (isset($_GET['id'])) {
-        $query = 'SELECT u.username, riwayat_p.instansi, p.hal, i.nama_barang, p.jumlah, p.tgl_kembali
+        $query = 'SELECT u.username, p.instansi, p.hal, i.nama_barang, p.jumlah, p.tgl_kembali
                   FROM riwayat_pengajuan p
                   LEFT JOIN items i ON p.id_barang = i.id
                   LEFT JOIN users u ON p.id_pengguna = u.id
