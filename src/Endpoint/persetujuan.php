@@ -1,6 +1,6 @@
 <?php
 
-header('Connection-Type: application/json');
+header('Content-Type: application/json');
 require('../connection/connect_db.php');
 require('../../method/persetujuan/patch.php');
 require('../../method/persetujuan/get.php');
