@@ -2,6 +2,7 @@
 
 header("Content-Type: application/json");
 include "../connection/connect_db.php";
+
 $json = file_get_contents("php://input");
 $data = json_decode($json, true);
 if (!$data) {
@@ -30,7 +31,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit();
 }
 
-$sql = "SELECT id, email, password FROM users WHERE email = ?";
+$sql = "SELECT id, email, password, username, role_id FROM users WHERE email = ?";
 $stmt = $conn->prepare($sql);
 if (!$stmt) {
     http_response_code(500);
@@ -54,6 +55,8 @@ if ($result->num_rows > 0) {
             "message" => "Login berhasil",
             "user" => [
                 "id" => $user["id"],
+                "username" => $user["username"],
+                "role_id" => $user["role_id"],
                 "email" => $user["email"],
             ],
         ];
