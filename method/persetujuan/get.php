@@ -3,12 +3,12 @@
 function ambilPersetujuan($conn)
 {
     if (isset($_GET['id'])) {
-        $query = 'SELECT p.id, s.kode, u.username, p.instansi, i.nama_barang, p.tgl_kembali, p.jumlah, p.hal
-                  FROM riwayat_pengajuan p
-                  LEFT JOIN items i ON p.id_barang = i.id
-                  LEFT JOIN users u ON p.id_pengguna = u.id
-                  LEFT JOIN status s ON p.id_status = s.id
-                  WHERE p.id = ?';
+        $query = 'SELECT r.id, s.kode, u.username, r.instansi, i.nama_barang, r.tgl_kembali, r.jumlah, r.hal
+                  FROM riwayat_pengajuan r
+                  LEFT JOIN items i ON r.id_barang = i.id
+                  LEFT JOIN users u ON r.id_pengguna = u.id
+                  LEFT JOIN status s ON r.id_status = s.id
+                  WHERE r.id = ?';
 
         $stmt = $conn->prepare($query);
         $stmt->bind_param('i', $_GET['id']);
@@ -21,11 +21,11 @@ function ambilPersetujuan($conn)
             echo json_encode(['error' => 'Barang tidak ditemukan']);
         }
     } else {
-        $query = 'SELECT p.id, s.kode, u.username, p.instansi, i.nama_barang, p.tgl_kembali, p.jumlah, p.hal
-                  FROM riwayat_pengajuan p
-                  LEFT JOIN items i ON p.id_barang = i.id
-                  LEFT JOIN users u ON p.id_pengguna = u.id
-                  LEFT JOIN status s ON p.id_status = s.id';
+        $query = 'SELECT r.id, s.kode, u.username, r.instansi, i.nama_barang, r.tgl_kembali, r.jumlah, r.hal
+                  FROM riwayat_pengajuan r
+                  LEFT JOIN items i ON r.id_barang = i.id
+                  LEFT JOIN users u ON r.id_pengguna = u.id
+                  LEFT JOIN status s ON r.id_status = s.id';
 
         $result = $conn->query($query);
 
