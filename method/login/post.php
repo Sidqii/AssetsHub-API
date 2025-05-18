@@ -23,7 +23,7 @@ function login($conn)
         if (password_verify($pass, $user['password'])) {
             http_response_code(200);
             echo json_encode([
-                'status' => 'succes',
+                'status' => 'success',
                 'message' => 'Login berhasil',
                 'user_id' => $user['id']
             ]);

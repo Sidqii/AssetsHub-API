@@ -16,7 +16,7 @@ function ambilDataUser($conn)
 
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
-        echo json_encode(['status' => 'succes', 'data' => $user]);
+        echo json_encode(['status' => 'success', 'data' => $user]);
     } else {
         http_response_code(404);
         echo json_encode(['status' => 'Error', 'message' => 'User tidak ditemukan']);
