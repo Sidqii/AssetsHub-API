@@ -3,7 +3,7 @@
 function ambilPersetujuan($conn)
 {
     if (isset($_GET['id'])) {
-        $query = 'SELECT r.id, s.kode, u.username, r.instansi, i.nama_barang, r.tgl_kembali, r.jumlah, r.hal
+        $query = 'SELECT r.id, r.id_status, s.label, u.username, r.instansi, i.nama_barang, r.tgl_kembali, r.jumlah, r.hal
                   FROM riwayat_pengajuan r
                   LEFT JOIN items i ON r.id_barang = i.id
                   LEFT JOIN users u ON r.id_pengguna = u.id
@@ -21,7 +21,7 @@ function ambilPersetujuan($conn)
             echo json_encode(['error' => 'Barang tidak ditemukan']);
         }
     } else {
-        $query = 'SELECT r.id, s.kode, u.username, r.instansi, i.nama_barang, r.tgl_kembali, r.jumlah, r.hal
+        $query = 'SELECT r.id, r.id_status, s.label, u.username, r.instansi, i.nama_barang, r.tgl_kembali, r.jumlah, r.hal
                   FROM riwayat_pengajuan r
                   LEFT JOIN items i ON r.id_barang = i.id
                   LEFT JOIN users u ON r.id_pengguna = u.id

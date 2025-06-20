@@ -3,7 +3,7 @@
 function ambilPengajuan($conn)
 {
     if (isset($_GET['id'])) {
-        $query = 'SELECT p.id, s.kode, u.username, p.instansi, p.hal, i.nama_barang, p.jumlah, p.tgl_kembali
+        $query = 'SELECT p.id, p.id_pengguna, p.id_status, u.username, p.instansi, p.hal, i.nama_barang, p.jumlah, p.tgl_kembali
                   FROM pengajuan p
                   LEFT JOIN items i ON p.id_barang = i.id
                   LEFT JOIN users u ON p.id_pengguna = u.id
@@ -21,7 +21,7 @@ function ambilPengajuan($conn)
             echo json_encode(['error' => 'Barang tidak ditemukan']);
         }
     } else if (isset($_GET['id_pengguna'])) {
-        $query = 'SELECT p.id, p.id_pengguna, s.kode, u.username, p.instansi, p.hal, i.nama_barang, p.jumlah, p.tgl_kembali
+        $query = 'SELECT p.id, p.id_pengguna, p.id_status, u.username, p.instansi, p.hal, i.nama_barang, p.jumlah, p.tgl_kembali
                   FROM pengajuan p
                   LEFT JOIN items i ON p.id_barang = i.id
                   LEFT JOIN users u ON p.id_pengguna = u.id
@@ -43,7 +43,7 @@ function ambilPengajuan($conn)
             echo json_encode([]);
         }
     } else {
-        $query = 'SELECT p.id, s.kode, u.username, p.instansi, p.hal, i.nama_barang, p.jumlah, p.tgl_kembali
+        $query = 'SELECT p.id, p.id_pengguna, p.id_status, u.username, p.instansi, p.hal, i.nama_barang, p.jumlah, p.tgl_kembali
                   FROM pengajuan p
                   LEFT JOIN items i ON p.id_barang = i.id
                   LEFT JOIN users u ON p.id_pengguna = u.id
