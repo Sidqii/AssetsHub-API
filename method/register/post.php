@@ -14,7 +14,6 @@ function register($conn)
     $stmt->store_result();
     if ($stmt->num_rows > 0) {
         http_response_code(409);
-        echo json_encode(['status' => 'Error', 'message' => 'Email sudah terdaftar']);
         return;
     }
 

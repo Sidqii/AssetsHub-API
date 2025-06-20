@@ -6,7 +6,6 @@ function ambilDataUser($conn)
 
     if (!$stmt) {
         http_response_code(500);
-        echo json_encode(['status' => 'Error', 'message' => 'Kesalahan server']);
         return;
     }
 
@@ -19,7 +18,6 @@ function ambilDataUser($conn)
         echo json_encode(['status' => 'success', 'data' => $user]);
     } else {
         http_response_code(404);
-        echo json_encode(['status' => 'Error', 'message' => 'User tidak ditemukan']);
     }
     $stmt->close();
 }

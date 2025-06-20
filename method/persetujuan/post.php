@@ -31,11 +31,14 @@ function persetujuan($conn)
         );
 
         if ($stmt->execute()) {
+            http_response_code(201);
             echo json_encode(['message' => 'Sukses']);
         } else {
+            http_response_code(401);
             echo json_encode(['Error' => 'Gagal']);
         }
     } else {
+        http_response_code(500);
         echo json_encode(['Error' => 'Data tidak valid']);
     }
 }
