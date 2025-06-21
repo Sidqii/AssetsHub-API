@@ -10,6 +10,7 @@ function login($conn)
     $stmt = $conn->prepare('SELECT id, password FROM users WHERE email = ?');
     if (!$stmt) {
         http_response_code(500);
+        echo json_encode(['status' => 'error', 'message' => 'server error']);
         return;
     }
 
@@ -28,8 +29,10 @@ function login($conn)
             ]);
         } else {
             http_response_code(401);
+            echo json_encode(['status' => 'gagal', 'message' => 'password salah']);
         }
     } else {
         http_response_code(404);
+        echo json_encode(['status' => 'gagal', 'message' => 'email tidak ditemukan']);
     }
 }

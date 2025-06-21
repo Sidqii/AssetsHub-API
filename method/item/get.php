@@ -2,11 +2,11 @@
 
 function ambilBarang($conn){
     if (isset($_GET['id'])) {
-        $query = 'SELECT items.id, items.nama_barang, categories.nama_kategori, items.harga, items.stok, locations.nama_lokasi, items.status, items.created_at
-                  FROM items
-                  LEFT JOIN categories ON items.id_kategori = categories.id
-                  LEFT JOIN locations ON items.id_lokasi = locations.id
-                  WHERE items.id = ?';
+        $query = 'SELECT i.id, i.nama_barang, k.nama_kategori, i.stok, l.nama_lokasi, i.created_at, i.merk, i.no_seri, i.pengadaan, i.jum_baik, i.jum_rusak, i.jum_rawat, i.jum_pinjam
+                  FROM items i
+                  LEFT JOIN categories k ON i.id_kategori = k.id
+                  LEFT JOIN locations l ON i.id_lokasi = l.id
+                  WHERE i.id = ?';
 
         $stmt = $conn->prepare($query);
         $stmt->bind_param('i', $_GET['id']);
@@ -19,10 +19,10 @@ function ambilBarang($conn){
             echo json_encode(['error' => 'Barang tidak ditemukan']);
         }
     } else {
-        $query = 'SELECT items.id, items.nama_barang, categories.nama_kategori, items.harga, items.stok, locations.nama_lokasi, items.status, items.created_at
-                  FROM items
-                  LEFT JOIN categories ON items.id_kategori = categories.id
-                  LEFT JOIN locations ON items.id_lokasi = locations.id';
+        $query = 'SELECT i.id, i.nama_barang, k.nama_kategori, i.stok, l.nama_lokasi, i.created_at, i.merk, i.no_seri, i.pengadaan, i.jum_baik, i.jum_rusak, i.jum_rawat, i.jum_pinjam
+                  FROM items i
+                  LEFT JOIN categories k ON i.id_kategori = k.id
+                  LEFT JOIN locations l ON i.id_lokasi = l.id';
         
         $result = $conn->query($query);
 
